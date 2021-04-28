@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import nltk
-nltk.download()
+#nltk.download() - you might not need this
 import string
 from sklearn.linear_model import LogisticRegression
 
