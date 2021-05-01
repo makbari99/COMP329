@@ -56,7 +56,6 @@ def clean_text(df):
         text = [lemmatizer.lemmatize(word, pos='v') for word in word_tokens]
 
         all_reviews.append(words)
-
     return all_reviews
 
 
@@ -96,3 +95,14 @@ model_LR_score = model_LR.score(x_test, y_test)
 
 print("-------Logistic Regression-------")
 print("Accuracy: ", model_LR_score*100)
+
+## TF-IDF
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+tfidf_vectorizer = TfidfVectorizer(analyzer='word', stop_words='english')
+tfidf_matrix = tfidf_vectorizer.fit_transform(x_test)
+tfidf_token = tfidf_vectorizer.get_feature_names()
+data_tfidf = pd.DataFrame(data=tfidf_matrix.toarray(), columns=tfidf_token)
+
+print('\nTD-IDF Vectorizer\n')
+print(data_tfidf)
