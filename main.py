@@ -97,13 +97,21 @@ print("-------Logistic Regression-------")
 print("Accuracy: ", model_LR_score*100)
 '''
 
-## TF-IDF
+## TF-IDF and KNeighbors
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.neighbors import KNeighborsClassifier
 
 tfidf_vectorizer = TfidfVectorizer(analyzer='word', stop_words='english')
 tfidf_matrix = tfidf_vectorizer.fit_transform(x_test)
 tfidf_token = tfidf_vectorizer.get_feature_names()
 data_tfidf = pd.DataFrame(data=tfidf_matrix.toarray(), columns=tfidf_token)
+
+model_KN = KNeighborsClassifier(n_neighbors=5)
+model_KN.fit(x_train_vec, y_train)
+prediction_KN = model_KN.predict(x_dev_vec)
+
+print("The prediction accuracy of the development set with the KNeighbors model is:")
+print(metrics.accuracy_score(prediction_KN, y_dev))
 
 print('\nTD-IDF Vectorizer\n')
 print(data_tfidf)
