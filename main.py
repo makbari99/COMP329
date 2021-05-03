@@ -88,13 +88,10 @@ print(metrics.accuracy_score(prediction, y_dev))
 '''
 ## Logistic Regression
 model_LR = LogisticRegression()
-model_LR.fit(x_train, y_train)
-
-y_predict_LR = model_LR.predict(x_test)
-model_LR_score = model_LR.score(x_test, y_test)
-
-print("-------Logistic Regression-------")
-print("Accuracy: ", model_LR_score*100)
+model_LR.fit(x_train_vec, y_train)
+predict_LR = model_LR.predict(x_dev_vec)
+print("The prediction accuracy of the development set with the Logistic Regression model is:")
+print(metrics.accuracy_score(predict_LR, y_dev)
 '''
 
 ## TF-IDF and KNeighbors
