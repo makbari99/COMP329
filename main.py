@@ -25,12 +25,12 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-
 ### Text Cleaning
 def clean_text(df):
     all_reviews = list()
     lines = df["OriginalTweet"].values.tolist()
     for text in lines:
+        
         # Lower Casing
         text = text.lower()
 
@@ -57,7 +57,6 @@ def clean_text(df):
 
         all_reviews.append(words)
     return all_reviews
-
 
 ###Split to testing set and development set
 from sklearn.model_selection import train_test_split
@@ -86,6 +85,7 @@ prediction = clf.predict(x_dev_vec)
 print("The prediction accuracy of the development set with LinearSVC model is:")
 print(metrics.accuracy_score(prediction, y_dev))
 
+'''
 ## Logistic Regression
 model_LR = LogisticRegression()
 model_LR.fit(x_train, y_train)
@@ -95,6 +95,7 @@ model_LR_score = model_LR.score(x_test, y_test)
 
 print("-------Logistic Regression-------")
 print("Accuracy: ", model_LR_score*100)
+'''
 
 ## TF-IDF
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -106,3 +107,13 @@ data_tfidf = pd.DataFrame(data=tfidf_matrix.toarray(), columns=tfidf_token)
 
 print('\nTD-IDF Vectorizer\n')
 print(data_tfidf)
+
+## Random Forest
+from sklearn.ensemble import RandomForestClassifier
+
+model_RF = RandomForestClassifier(n_estimators = 10, max_depth = 5)
+model_RF.fit(x_train_vec, y_train)
+predictions_RF = model_RF.predict(x_dev_vec)
+
+print("The prediction accuracy of the development set with the Random Forest model is:")
+print(metrics.accuracy_score(predictions_RF, y_dev))
