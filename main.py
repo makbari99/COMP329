@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import nltk
-#nltk.download() - you might not need this
+# nltk.download() - you might not need this
 import string
 from sklearn.linear_model import LogisticRegression
 
@@ -30,7 +30,7 @@ def clean_text(df):
     all_reviews = list()
     lines = df["OriginalTweet"].values.tolist()
     for text in lines:
-        
+
         # Lower Casing
         text = text.lower()
 
@@ -116,9 +116,18 @@ print(data_tfidf)
 ## Random Forest
 from sklearn.ensemble import RandomForestClassifier
 
-model_RF = RandomForestClassifier(n_estimators = 10, max_depth = 5)
+model_RF = RandomForestClassifier(n_estimators=10, max_depth=5)
 model_RF.fit(x_train_vec, y_train)
 predictions_RF = model_RF.predict(x_dev_vec)
 
 print("The prediction accuracy of the development set with the Random Forest model is:")
 print(metrics.accuracy_score(predictions_RF, y_dev))
+
+## Naive Bayes
+from sklearn.naive_bayes import MultinomialNB
+
+model_NB = MultinomialNB()
+model_NB.fit(x_train_vec, y_train)
+prediction_NB = model_NB.predict(x_dev_vec)
+print("The prediction accuracy of the development set with the Naive Bayes model is:")
+print(metrics.accuracy_score(prediction_NB, y_dev))
