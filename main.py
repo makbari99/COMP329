@@ -12,6 +12,32 @@ df_test = pd.read_csv("Corona_NLP_test.csv", encoding='ISO-8859-1')
 print(df_train.shape)
 print(df_test.shape)
 
+### Data Viz
+df_all=pd.concat([df_train,df_test])
+df_all = df_all.drop(['UserName', 'ScreenName', 'Location', 'TweetAt'], axis=1)
+df_all.head()
+print(df_all.Sentiment.value_counts())
+
+import matplotlib.pyplot as plt 
+import numpy as np 
+
+sentiment_count = [12369, 10958, 8332, 7223, 6073]
+labels = 'Positive','Negative','Neutral','Extremely Positive' , 'Extremely Negative'
+plt.pie(sentiment_count, labels = labels, autopct = '%1.1f%%')
+plt.title('Coronavirus Tweets Sentiment Count')
+plt.axis('equal')
+plt.show()
+
+df_all = df_all.replace(regex={'Extremely Positive': 'Positive', 'Extremely Negative': 'Negative'})
+
+print(df_all.Sentiment.value_counts())
+sentiment_count = [19592,17031,8332]
+labels = 'Positive','Negative','Neutral'
+plt.pie(sentiment_count, labels = labels, autopct = '%1.1f%%')
+plt.title('Simplified Sentiment Count')
+plt.axis('equal')
+plt.show()
+
 ### Narrow our classification to three classes: Positive, Neutral, Negative and drop the unnecessary column
 df_train = df_train.replace(regex={'Extremely Positive': 'Positive', 'Extremely Negative': 'Negative'})
 print(pd.unique(df_train['Sentiment']))
