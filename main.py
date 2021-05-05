@@ -72,8 +72,8 @@ y_test = df_test['Sentiment'].tolist()
 from sklearn.feature_extraction.text import CountVectorizer
 
 vectorizer = CountVectorizer()
-x_train_vec = vectorizer.fit_transform(x_train).toarray()
-x_dev_vec = vectorizer.transform(x_dev).toarray()
+x_train_vec = vectorizer.fit_transform(x_train).toarray() #remove .toarray() for Logistic Regression Model
+x_dev_vec = vectorizer.transform(x_dev).toarray() #remove .toarray() for Logistic Regression Model
 
 ###Using LinearSVC model for predictions
 from sklearn.svm import LinearSVC
@@ -85,14 +85,13 @@ prediction = clf.predict(x_dev_vec)
 print("The prediction accuracy of the development set with LinearSVC model is:")
 print(metrics.accuracy_score(prediction, y_dev))
 
-'''
 ## Logistic Regression
 model_LR = LogisticRegression()
 model_LR.fit(x_train_vec, y_train)
 predict_LR = model_LR.predict(x_dev_vec)
 print("The prediction accuracy of the development set with the Logistic Regression model is:")
 print(metrics.accuracy_score(predict_LR, y_dev)
-'''
+
 
 ## TF-IDF and KNeighbors
 from sklearn.feature_extraction.text import TfidfVectorizer
